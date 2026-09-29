@@ -1,0 +1,456 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+  --tp-bg: #f7f8f5;
+  --tp-surface: #ffffff;
+  --tp-text: #142d35;
+  --tp-text-muted: #52656b;
+  --tp-accent: #087f8c;
+  --tp-accent-hover: #066671;
+  --tp-selected: #ddf1ec;
+  --tp-border: #dce5e2;
+  --tp-on-accent: #ffffff;
+  --tp-overlay: rgba(20, 45, 53, 0.4);
+  --tp-shadow: 0 6px 18px rgba(20, 45, 53, 0.08);
+  --tp-error-bg: #f8e4df;
+  --tp-error-text: #8a3b32;
+  --tp-saved: #c43c4b;
+  --tp-saved-bg: #fff5f6;
+  --tp-saved-border: #f0c9ce;
+  color: var(--tp-text);
+  background: var(--tp-bg);
+  font-family: Inter, 'Segoe UI', sans-serif;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  background: var(--tp-bg);
+  color: var(--tp-text);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+:focus-visible {
+  outline: 2px solid var(--tp-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.drawer-root {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  pointer-events: none;
+  padding: 16px 20px 8px;
+}
+
+.drawer-overlay {
+  display: none;
+}
+
+.drawer-panel {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--tp-surface);
+  border: 1px solid var(--tp-border);
+  border-radius: 16px;
+  box-shadow: 0 18px 48px rgba(20, 45, 53, 0.18);
+  padding: 0;
+  color: var(--tp-text);
+  pointer-events: auto;
+}
+
+.drawer-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 0 24px 24px;
+}
+
+.trip-details-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: start;
+  flex: none;
+  padding: 20px 16px 12px;
+  background: var(--tp-surface);
+}
+
+.drawer-panel .trip-details-header {
+  padding: 24px 24px 12px;
+}
+
+.trip-details-header-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.trip-details-photo,
+.trip-details-photo.photoFallback,
+.drawer-root .photoFallback {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 12px;
+}
+
+.trip-details-header h2,
+.trip-details-header p,
+.eyebrow {
+  margin: 0;
+}
+
+.trip-details-header .eyebrow,
+.drawer-root .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--tp-accent);
+  margin-bottom: 8px;
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  line-height: 1;
+  border: 1px solid var(--tp-border);
+  background: var(--tp-surface);
+  color: var(--tp-text);
+  border-radius: 999px;
+  padding: 8px 12px;
+}
+
+.icon-button svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+.icon-button:hover {
+  background: var(--tp-selected);
+}
+
+.icon-button[aria-pressed="true"] {
+  color: var(--tp-saved);
+  border-color: var(--tp-saved-border);
+  background: var(--tp-saved-bg);
+}
+
+.icon-button[aria-pressed="true"]:hover {
+  background: var(--tp-saved-bg);
+}
+
+.trip-details-summary {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--tp-text);
+}
+
+.trip-details-evidence {
+  margin: 0 0 16px;
+  padding-left: 18px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--tp-text-muted);
+}
+
+.trip-details-list {
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.trip-details-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.trip-details-row dt {
+  color: var(--tp-text-muted);
+}
+
+.trip-details-row dd {
+  margin: 0;
+  font-weight: 600;
+  color: var(--tp-text);
+}
+
+.trip-details-activities {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--tp-border);
+}
+
+.trip-details-activities h3 {
+  margin: 0 0 12px;
+  font-size: 15px;
+}
+
+.trip-details-activities-status {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--tp-text-muted);
+}
+
+.trip-details-section-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.trip-details-section-toggle:focus-visible,
+.trip-details-hotel-select:focus-visible {
+  outline: 2px solid var(--tp-accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.trip-details-hotel-card.is-selected {
+  border-color: var(--tp-accent);
+  background: var(--tp-selected);
+}
+
+.trip-details-hotel-select {
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.trip-details-hotel-select > span {
+  display: block;
+}
+
+.trip-details-hotel-select > .trip-details-activity-description {
+  display: -webkit-box;
+}
+
+.hotel-map-marker,
+.activity-map-marker {
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--tp-accent);
+  border-radius: 50%;
+  background: var(--tp-surface);
+  color: var(--tp-accent);
+  box-shadow: var(--tp-shadow);
+}
+
+.hotel-map-marker.is-selected,
+.activity-map-marker.is-selected {
+  background: var(--tp-selected);
+  outline: 2px solid var(--tp-accent);
+  outline-offset: 2px;
+}
+
+.activity-map-marker {
+  border-radius: 6px;
+}
+
+.trip-details-places {
+  display: contents;
+}
+
+.trip-details-activities-error {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+}
+
+.trip-details-activities-retry {
+  border: 1px solid var(--tp-border);
+  background: var(--tp-surface);
+  color: var(--tp-text);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 600;
+}
+
+.trip-details-activity-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.trip-details-activity-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: start;
+  padding: 12px 14px;
+  border: 1px solid var(--tp-border);
+  border-radius: 14px;
+  background: var(--tp-surface);
+}
+
+.trip-details-activity-body {
+  min-width: 0;
+}
+
+.trip-details-activity-name,
+.trip-details-activity-meta {
+  margin: 0;
+}
+
+.trip-details-activity-name {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.trip-details-activity-description {
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--tp-text-muted);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.trip-details-activity-meta {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--tp-text-muted);
+  line-height: 1.4;
+}
+
+.trip-details-activities-attribution {
+  margin: 8px 0 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--tp-text-muted);
+}
+
+.trip-details-activities-like-note {
+  margin: 0 0 12px;
+  color: var(--tp-text-muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.trip-details-activity-like {
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--tp-border);
+  border-radius: 50%;
+  background: var(--tp-surface);
+  color: var(--tp-accent);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.trip-details-activity-like:hover,
+.trip-details-activity-like-on {
+  background: var(--tp-selected);
+  border-color: var(--tp-accent);
+}
+
+.trip-details-activity-like:disabled {
+  opacity: 0.7;
+}
+
+.leaflet-container {
+  font-family: inherit;
+}
+
+@media (max-width: 640px) {
+  .trip-details-row {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
+
+@media (max-width: 780px) {
+  .drawer-root {
+    position: fixed;
+    pointer-events: auto;
+    padding: 12px;
+  }
+
+  .drawer-overlay {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border: 0;
+    background: var(--tp-overlay);
+    pointer-events: auto;
+  }
+
+  .drawer-panel {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+  }
+}
