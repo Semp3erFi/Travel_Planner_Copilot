@@ -74,3 +74,6 @@ Current HTTP routes include `/api/origins`, `/api/flights`, `/api/candidates`,
 Keep Cosmos credentials and other secrets in `.env`. Data ingestion stays in
 `data_preparation/`. Backend route and parser details are in
 `backend/README.md`.
+
+# Travel_Planner_Copilot
+AI-powered Travel Planner that turns natural-language trip preferences into ranked destination recommendations using real travel data, deterministic Python scoring, FastAPI, React, Azure Cosmos DB, and LLM-powered interpretation and explanations.
